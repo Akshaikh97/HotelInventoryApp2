@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, OnInit, ViewChild } from '@angular/core';
+import { HeaderComponent } from '../header/header.component';
 import { Room, RoomList } from './rooms';
 
 @Component({
@@ -7,7 +8,10 @@ import { Room, RoomList } from './rooms';
   styleUrls: ['./rooms.component.scss'],
   // changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class RoomsComponent implements OnInit {
+export class RoomsComponent implements OnInit, DoCheck{
+
+  title= 'Rooms List';
+
   hotelName = 'Hilton hotel';
 
   numberOfRooms = 10;
@@ -23,10 +27,14 @@ export class RoomsComponent implements OnInit {
   };
 
   roomList: RoomList[] = [];
-
+  @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
   constructor() {}
+  ngDoCheck(): void {
+    console.log('Do changes is called.');
+  }
 
   ngOnInit(): void {
+    console.log(this.headerComponent);
     this.roomList = [
       {
         roomNumber: 1,
@@ -62,12 +70,14 @@ export class RoomsComponent implements OnInit {
   }
   toggle() {
     this.hideRooms = !this.hideRooms;
+    this.title = "Rooms List";
   }
 
   selectRoom(room: RoomList) {
     console.log(room);
     //this.selectedRoom = room;
   }
+
   addRoom() {
     const room: RoomList = {
       roomNumber: 4,

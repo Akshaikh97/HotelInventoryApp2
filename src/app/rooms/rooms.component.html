@@ -1,19 +1,23 @@
-<h1>Welcome to {{hotelName}}</h1>
+<ak-header></ak-header>
+<!-- <h1>Welcome to {{hotelName}}</h1> -->
 <div [hidden]="hideRooms">
-    Number of Rooms:
-    <div [ngStyle]="{'color': rooms.availableRooms ? 'green' : 'red'}" [innerText]="numberOfRooms"></div>
+  Number of Rooms:
+  <div [ngStyle]="{'color': rooms.availableRooms ? 'green' : 'red'}" [innerText]="numberOfRooms"></div>
 </div>
 
+<!-- Null coalescing -->
 {{ rooms?.availableRooms ?? "No rooms" }}
 <!-- {{roomList | json}} -->
 <!-- <div *ngIf="selectedRoom">
     {{selectedRoom | json}}
 </div> -->
+
 <div>
-    <button (click)="addRoom()">Add Room</button>
+  <button (click)="addRoom()">Add Room</button>
 </div>
+
 <div *ngIf="rooms.availableRooms > 0">
-    <ak-rooms-list [rooms]="roomList" (selectedRoom)="selectRoom($event)"></ak-rooms-list>
+  <ak-rooms-list [rooms]="roomList" [title]="title" (selectedRoom)="selectRoom($event)"></ak-rooms-list>
 </div>
 
 <button (click)="toggle()">Toggle</button>
